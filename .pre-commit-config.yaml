@@ -16,8 +16,8 @@ repos:
         stages:
           - pre-push
     repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.11.1
+    rev: v4.13.9
   - hooks:
       - id: gitleaks
     repo: https://github.com/gitleaks/gitleaks
-    rev: v8.30.0
+    rev: v8.30.1
