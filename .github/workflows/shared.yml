@@ -45,7 +45,7 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: pgerke/ngx-mat-table-multi-sort
+          slug: lion-and-bear/ngx-mat-table-multi-sort
       - name: Extract version
         id: version-extraction
         run: echo "APP_VERSION=$(jq -r .version package.json)" >> "$GITHUB_OUTPUT"
