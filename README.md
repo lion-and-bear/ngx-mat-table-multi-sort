@@ -4,7 +4,7 @@ An Angular library that adds multi-sort capability to the Angular Material table
 
 [![Continuous Integration](https://github.com/lion-and-bear/ngx-mat-table-multi-sort/actions/workflows/ci.yml/badge.svg)](https://github.com/lion-and-bear/ngx-mat-table-multi-sort/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/lion-and-bear/ngx-mat-table-multi-sort/graph/badge.svg?token=MDIEOFNUYR)](https://codecov.io/gh/lion-and-bear/ngx-mat-table-multi-sort)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=lion-and-bear_ngx-mat-table-multi-sort&metric=alert_status&token=1114974e75c8639e88919fd32d36163e5c3c851c)](https://sonarcloud.io/summary/new_code?id=lion-and-bear_ngx-mat-table-multi-sort)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ngx-mat-table-multi-sort&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ngx-mat-table-multi-sort)
 ![Dependencies](https://img.shields.io/librariesio/release/npm/ngx-mat-table-multi-sort)
 ![npm](https://img.shields.io/npm/v/ngx-mat-table-multi-sort)
 ![License](https://img.shields.io/github/license/lion-and-bear/ngx-mat-table-multi-sort)
