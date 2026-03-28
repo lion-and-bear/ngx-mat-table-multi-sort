@@ -47,7 +47,7 @@ jobs:
       - name: Update npm to support OIDC
         run: npm install -g npm@^11.5.1
       - name: Download artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: library
           path: "./dist/lib"
