@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
   deploy_library:
     name: Deploy Library
@@ -38,7 +38,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
