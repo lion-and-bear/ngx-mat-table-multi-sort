@@ -1,6 +1,6 @@
 {
   "name": "ngx-mat-table-multi-sort",
-  "version": "20.6.0",
+  "version": "20.7.0",
   "preview": false,
   "scripts": {
     "ng": "ng",
@@ -32,10 +32,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pgerke/ngx-mat-table-multi-sort.git"
+    "url": "git+https://github.com/lion-and-bear/ngx-mat-table-multi-sort.git"
   },
   "bugs": {
-    "url": "https://github.com/pgerke/ngx-mat-table-multi-sort/issues"
+    "url": "https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues"
   },
   "dependencies": {
     "tslib": "^2.8.1"
