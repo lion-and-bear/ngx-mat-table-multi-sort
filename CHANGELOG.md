@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [19.13.0] - 29.03.2026
+
+- Bump dependencies
+
 ## [19.12.0] - 10.01.2026
 
 - Bump dependencies
@@ -127,47 +131,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#2]: Added linter and formatter support
 - NO TICKET: Initial bootstrapping
 
-[Unreleased]: https://github.com/pgerke/ngx-mat-table-multi-sort/compare/v19.12.0...HEAD
-[19.12.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.12.0
-[19.11.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.11.0
-[19.10.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.10.0
-[19.9.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.9.0
-[19.8.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.8.0
-[19.7.1]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.7.1
-[19.7.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.7.0
-[19.6.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.6.0
-[19.5.1]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.5.1
-[19.5.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.5.0
-[19.4.1]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.4.1
-[19.4.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.4.0
-[19.3.1]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.3.1
-[19.3.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.3.0
-[19.2.1]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.2.1
-[19.2.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.2.0
-[19.1.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.1.0
-[19.0.0]: https://github.com/pgerke/ngx-mat-table-multi-sort/releases/tag/19.0.0
-[#115]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/115
-[#95]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/95
-[#89]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/89
-[#74]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/74
-[#70]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/70
-[#53]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/53
-[#54]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/54
-[#49]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/49
-[#46]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/46
-[#36]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/36
-[#40]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/40
-[#37]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/37
-[#30]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/30
-[#31]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/31
-[#28]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/28
-[#4]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/4
-[#20]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/20
-[#19]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/19
-[#11]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/11
-[#18]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/18
-[#9]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/9
-[#8]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/8
-[#1]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/1
-[#3]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/3
-[#2]: https://github.com/pgerke/ngx-mat-table-multi-sort/issues/2
+[Unreleased]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/compare/v19.12.0...HEAD
+[19.13.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.13.0
+[19.12.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.12.0
+[19.11.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.11.0
+[19.10.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.10.0
+[19.9.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.9.0
+[19.8.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.8.0
+[19.7.1]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.7.1
+[19.7.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.7.0
+[19.6.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.6.0
+[19.5.1]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.5.1
+[19.5.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.5.0
+[19.4.1]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.4.1
+[19.4.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.4.0
+[19.3.1]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.3.1
+[19.3.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.3.0
+[19.2.1]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.2.1
+[19.2.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.2.0
+[19.1.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.1.0
+[19.0.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.0.0
+[#115]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/115
+[#95]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/95
+[#89]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/89
+[#74]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/74
+[#70]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/70
+[#53]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/53
+[#54]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/54
+[#49]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/49
+[#46]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/46
+[#36]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/36
+[#40]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/40
+[#37]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/37
+[#30]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/30
+[#31]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/31
+[#28]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/28
+[#4]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/4
+[#20]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/20
+[#19]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/19
+[#11]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/11
+[#18]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/18
+[#9]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/9
+[#8]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/8
+[#1]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/1
+[#3]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/3
+[#2]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/2
