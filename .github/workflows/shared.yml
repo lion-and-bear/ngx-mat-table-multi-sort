@@ -25,7 +25,7 @@ jobs:
           git fetch --unshallow || true
           git fetch --tags
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -42,10 +42,10 @@ jobs:
       - name: Run unit test
         run: pnpm run test:ci
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: pgerke/ngx-mat-table-multi-sort
+          slug: lion-and-bear/ngx-mat-table-multi-sort
       - name: Extract version
         id: version-extraction
         run: echo "APP_VERSION=$(jq -r .version package.json)" >> "$GITHUB_OUTPUT"
@@ -66,7 +66,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -91,7 +91,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -120,3 +120,4 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}

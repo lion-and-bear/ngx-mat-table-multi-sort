@@ -6,12 +6,12 @@
     "ng": "ng",
     "clean": "rimraf dist coverage",
     "start:demo": "ng serve demo",
-    "build": "pnpm run clean && ng build --configuration production",
-    "build:demo": "pnpm run clean && ng build --base-href=/ngx-mat-table-multi-sort/ --configuration production demo",
+    "build": "pnpm clean && ng build --configuration production",
+    "build:demo": "pnpm clean && ng build --base-href=/ngx-mat-table-multi-sort/ --configuration production demo",
     "test": "ng test lib --browsers ChromeHeadless --code-coverage",
-    "test:ci": "pnpm run clean && ng test --browsers ChromeHeadless --code-coverage --watch=false",
-    "lint": "pnpm run clean && ng lint --fix --max-warnings 0",
-    "prepublishOnly": "pnpm run lint && pnpm run build"
+    "test:ci": "pnpm clean && ng test --browsers ChromeHeadless --code-coverage --watch=false",
+    "lint": "pnpm clean && ng lint --fix --max-warnings 0",
+    "prepublishOnly": "pnpm lint && pnpm build"
   },
   "license": "MIT",
   "author": {
@@ -32,10 +32,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pgerke/ngx-mat-table-multi-sort.git"
+    "url": "git+https://github.com/lion-and-bear/ngx-mat-table-multi-sort.git"
   },
   "bugs": {
-    "url": "https://github.com/pgerke/ngx-mat-table-multi-sort/issues"
+    "url": "https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues"
   },
   "dependencies": {
     "tslib": "^2.8.1"
