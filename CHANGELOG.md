@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [19.14.0] - 17.05.2026
+
+- Bump dependencies
+
 ## [19.13.0] - 29.03.2026
 
 - Bump dependencies
@@ -131,7 +135,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#2]: Added linter and formatter support
 - NO TICKET: Initial bootstrapping
 
-[Unreleased]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/compare/v19.12.0...HEAD
+[Unreleased]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/compare/v19.14.0...HEAD
+[19.14.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.14.0
 [19.13.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.13.0
 [19.12.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.12.0
 [19.11.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/19.11.0
