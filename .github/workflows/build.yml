@@ -63,6 +63,6 @@ jobs:
         run: pnpm run build:demo
       - name: Upload artifacts
         id: deployment
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist/demo/browser
