@@ -56,7 +56,7 @@
     "@angular-eslint/builder": "^21.4.0",
     "@angular/build": "^21.2.11",
     "@angular/cli": "^21.2.11",
-    "@angular/compiler": "^21.2.13",
+    "@angular/compiler": "^21.2.14",
     "@angular/compiler-cli": "^21.2.13",
     "@angular/platform-browser": "^21.2.13",
     "@angular/platform-browser-dynamic": "^21.2.13",
