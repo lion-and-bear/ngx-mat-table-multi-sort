@@ -135,13 +135,9 @@ export class MatMultiSortDirective extends MatSort {
       this._sorts.set(sortsSerialized ? JSON.parse(sortsSerialized) : []);
     }
 
-    // Update the sorting state when the sorts signal changes.
+    // Persist sort settings when the sorts signal changes.
     effect(() => {
-      const length = this._sorts().length;
-      this.sortChange.emit({
-        active: length ? this._sorts()[length - 1].active : "",
-        direction: length ? this._sorts()[length - 1].direction : "",
-      });
+      this._sorts();
       this.persistSortSettings();
     });
   }
@@ -196,7 +192,6 @@ export class MatMultiSortDirective extends MatSort {
     }
 
     this.sortChange.emit({ active: this.active, direction: this.direction });
-    this.persistSortSettings();
   }
 
   /**
@@ -212,7 +207,6 @@ export class MatMultiSortDirective extends MatSort {
 
     this._sorts.update((sorts) => sorts.filter((sort) => sort.active !== id));
     this.sortChange.emit();
-    this.persistSortSettings();
   }
 
   /**
@@ -229,7 +223,6 @@ export class MatMultiSortDirective extends MatSort {
     moveItemInArray(sorts, previousIndex, currentIndex);
     this._sorts.set(sorts);
     this.sortChange.emit(sorts[currentIndex]);
-    this.persistSortSettings();
   }
 
   /**
@@ -255,7 +248,6 @@ export class MatMultiSortDirective extends MatSort {
       )
     );
     this.sortChange.emit({ active: this.active, direction: this.direction });
-    this.persistSortSettings();
   }
 
   /**
@@ -269,7 +261,6 @@ export class MatMultiSortDirective extends MatSort {
     this.direction = "";
     this._sorts.set([]);
     this.sortChange.emit();
-    this.persistSortSettings();
   }
 
   private persistSortSettings(): void {
