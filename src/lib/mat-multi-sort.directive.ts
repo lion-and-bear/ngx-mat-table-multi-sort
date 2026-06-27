@@ -135,13 +135,9 @@ export class MatMultiSortDirective extends MatSort {
       this._sorts.set(sortsSerialized ? JSON.parse(sortsSerialized) : []);
     }
 
-    // Update the sorting state when the sorts signal changes.
+    // Persist sort settings when the sorts signal changes.
     effect(() => {
-      const length = this._sorts().length;
-      this.sortChange.emit({
-        active: length ? this._sorts()[length - 1].active : "",
-        direction: length ? this._sorts()[length - 1].direction : "",
-      });
+      this._sorts();
       this.persistSortSettings();
     });
   }
@@ -175,19 +171,27 @@ export class MatMultiSortDirective extends MatSort {
     // If the column is not active, add it to the list of active columns.
     if (index < 0) {
       this.direction = sortable.start ? sortable.start : this.start;
-      this._sorts().push({ active: this.active, direction: this.direction });
+      this._sorts.update((sorts) => [
+        ...sorts,
+        { active: this.active, direction: this.direction },
+      ]);
     } else {
       // If the column is active, update the direction or remove it if the direction is empty.
       this.direction = this.getNextSortDirection(sortable);
-      if (!this.direction) {
-        this._sorts().splice(index, 1);
+      if (this.direction) {
+        this._sorts.update((sorts) =>
+          sorts.map((sort, i) =>
+            i === index ? { ...sort, direction: this.direction } : sort
+          )
+        );
       } else {
-        this._sorts()[index].direction = this.direction;
+        this._sorts.update((sorts) =>
+          sorts.filter((sort) => sort.active !== sortable.id)
+        );
       }
     }
 
     this.sortChange.emit({ active: this.active, direction: this.direction });
-    this.persistSortSettings();
   }
 
   /**
@@ -201,9 +205,8 @@ export class MatMultiSortDirective extends MatSort {
     const index = this.getSortIndex(id);
     if (index < 0) return;
 
-    this._sorts().splice(index, 1);
+    this._sorts.update((sorts) => sorts.filter((sort) => sort.active !== id));
     this.sortChange.emit();
-    this.persistSortSettings();
   }
 
   /**
@@ -216,9 +219,10 @@ export class MatMultiSortDirective extends MatSort {
   public reorderSortLevel(previousIndex: number, currentIndex: number): void {
     if (previousIndex === currentIndex) return;
 
-    moveItemInArray(this._sorts(), previousIndex, currentIndex);
-    this.sortChange.emit(this._sorts()[currentIndex]);
-    this.persistSortSettings();
+    const sorts = [...this._sorts()];
+    moveItemInArray(sorts, previousIndex, currentIndex);
+    this._sorts.set(sorts);
+    this.sortChange.emit(sorts[currentIndex]);
   }
 
   /**
@@ -238,9 +242,12 @@ export class MatMultiSortDirective extends MatSort {
       id: id,
       disableClear: true,
     } as MatSortable);
-    this._sorts()[index].direction = this.direction;
+    this._sorts.update((sorts) =>
+      sorts.map((sort, i) =>
+        i === index ? { ...sort, direction: this.direction } : sort
+      )
+    );
     this.sortChange.emit({ active: this.active, direction: this.direction });
-    this.persistSortSettings();
   }
 
   /**
@@ -254,7 +261,6 @@ export class MatMultiSortDirective extends MatSort {
     this.direction = "";
     this._sorts.set([]);
     this.sortChange.emit();
-    this.persistSortSettings();
   }
 
   private persistSortSettings(): void {

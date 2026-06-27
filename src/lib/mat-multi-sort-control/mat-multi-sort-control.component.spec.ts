@@ -1,6 +1,7 @@
 import { CdkDragDrop } from "@angular/cdk/drag-drop";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { Sort } from "@angular/material/sort";
+import { vi } from "vitest";
 import { MatMultiSortControlComponent } from "./mat-multi-sort-control.component";
 
 describe("MatMultiSortControlComponent", () => {
@@ -22,10 +23,8 @@ describe("MatMultiSortControlComponent", () => {
   });
 
   it("should call toggleSortDirection on sort when onChipClick is called", () => {
-    const sortDirectiveSpy = jasmine.createSpyObj("MatMultiSortDirective", [
-      "toggleSortDirection",
-    ]);
-    component.sort = sortDirectiveSpy;
+    const sortDirectiveSpy = { toggleSortDirection: vi.fn() };
+    component.sort = sortDirectiveSpy as never;
 
     const sortId = "testSortId";
     component.onChipClick(sortId);
@@ -40,10 +39,8 @@ describe("MatMultiSortControlComponent", () => {
   });
 
   it("should call removeSortLevel on sort when onChipRemoved is called", () => {
-    const sortDirectiveSpy = jasmine.createSpyObj("MatMultiSortDirective", [
-      "removeSortLevel",
-    ]);
-    component.sort = sortDirectiveSpy;
+    const sortDirectiveSpy = { removeSortLevel: vi.fn() };
+    component.sort = sortDirectiveSpy as never;
 
     const sortId = "testSortId";
     component.onChipRemoved(sortId);
@@ -58,10 +55,8 @@ describe("MatMultiSortControlComponent", () => {
   });
 
   it("should call reorderSortLevel on sort when onDrop is called", () => {
-    const sortDirectiveSpy = jasmine.createSpyObj("MatMultiSortDirective", [
-      "reorderSortLevel",
-    ]);
-    component.sort = sortDirectiveSpy;
+    const sortDirectiveSpy = { reorderSortLevel: vi.fn() };
+    component.sort = sortDirectiveSpy as never;
 
     const event = {
       previousIndex: 0,
@@ -88,10 +83,8 @@ describe("MatMultiSortControlComponent", () => {
   });
 
   it("should call clearSorting on sort when onClearClick is called", () => {
-    const sortDirectiveSpy = jasmine.createSpyObj("MatMultiSortDirective", [
-      "clearSorting",
-    ]);
-    component.sort = sortDirectiveSpy;
+    const sortDirectiveSpy = { clearSorting: vi.fn() };
+    component.sort = sortDirectiveSpy as never;
     component.onClearClick();
 
     expect(sortDirectiveSpy.clearSorting).toHaveBeenCalled();

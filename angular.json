@@ -24,14 +24,14 @@
           },
           "defaultConfiguration": "production"
         },
-        "test": {
-          "builder": "@angular/build:karma",
+        "build-for-test": {
+          "builder": "@angular/build:application",
           "options": {
-            "karmaConfig": "karma.conf.js",
             "tsConfig": "tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing",
+              "zone.js/plugins/vitest-patch",
               "@angular/localize/init"
             ],
             "stylePreprocessorOptions": {
@@ -39,6 +39,33 @@
                 "node_modules"
               ]
             }
+          },
+          "configurations": {
+            "development": {
+              "aot": false,
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "buildTarget": "lib:build-for-test:development",
+            "runner": "vitest",
+            "coverage": true,
+            "coverageReporters": [
+              "html",
+              "lcov",
+              "text-summary"
+            ],
+            "coverageInclude": [
+              "src/lib/**/*.ts",
+              "src/test.ts"
+            ]
           }
         },
         "lint": {
@@ -91,7 +118,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "850kB",
+                  "maximumWarning": "900kB",
                   "maximumError": "1.25MB"
                 },
                 {
@@ -106,6 +133,22 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "testing": {
+              "aot": false,
+              "optimization": false,
+              "extractLicenses": false,
+              "polyfills": [
+                "zone.js",
+                "zone.js/testing",
+                "zone.js/plugins/vitest-patch",
+                "@angular/localize/init"
+              ],
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "node_modules"
+                ]
+              }
             }
           },
           "defaultConfiguration": "production"
@@ -126,31 +169,20 @@
           "builder": "@angular/build:extract-i18n"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "karmaConfig": "projects/demo/karma.conf.js",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing",
-              "@angular/localize/init"
-            ],
             "tsConfig": "projects/demo/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/demo/public"
-              }
+            "buildTarget": "demo:build:testing",
+            "runner": "vitest",
+            "coverage": true,
+            "coverageReporters": [
+              "html",
+              "lcov",
+              "text-summary"
             ],
-            "stylePreprocessorOptions": {
-              "includePaths": [
-                "node_modules"
-              ]
-            },
-            "styles": [
-              "projects/demo/src/styles.scss"
-            ],
-            "scripts": []
+            "coverageInclude": [
+              "projects/demo/src/app/**/*.ts"
+            ]
           }
         },
         "lint": {

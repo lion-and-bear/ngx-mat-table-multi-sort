@@ -53,6 +53,8 @@ const config = tseslint.config(
           ignoreStatic: true,
         },
       ],
+      // TODO: Remove this rule once we have a way to test the component change detection strategy, see #261
+      "@angular-eslint/prefer-on-push-component-change-detection": "off",
       "prettier/prettier": [
         "error",
         {
@@ -105,6 +107,8 @@ const config = tseslint.config(
           ignoreStatic: true,
         },
       ],
+      // TODO: Remove this rule once we have a way to test the component change detection strategy, see #261
+      "@angular-eslint/prefer-on-push-component-change-detection": "off",
       "prettier/prettier": [
         "error",
         {

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { MatSort } from "@angular/material/sort";
+import { vi } from "vitest";
 import { MatMultiSortDirective } from "../mat-multi-sort.directive";
 import { MatMultiSortHeaderComponent } from "./mat-multi-sort-header.component";
 
@@ -30,7 +31,7 @@ describe("MatMultiSortHeaderComponent", () => {
 
   it("should not trigger sort when the header is disabled", () => {
     component.disabled = true;
-    const spy = spyOn(sort, "sort");
+    const spy = vi.spyOn(sort, "sort");
     component._toggleOnInteraction();
     expect(spy).not.toHaveBeenCalled();
   });
@@ -38,16 +39,16 @@ describe("MatMultiSortHeaderComponent", () => {
   it("should not trigger sort when sorting is disabled on the directive", () => {
     sort.disabled = true;
     component.disabled = false;
-    const spy = spyOn(sort, "sort");
+    const spy = vi.spyOn(sort, "sort");
     component._toggleOnInteraction();
     expect(spy).not.toHaveBeenCalled();
   });
 
   it("should set recentlyCleared to null when the column was not previously sorted", () => {
     component.disabled = false;
-    spyOn(component, "_isSorted").and.returnValue(false);
-    const sortSpy = spyOn(sort, "sort");
-    const recentlyClearedSpy = spyOn(component["_recentlyCleared"], "set");
+    vi.spyOn(component, "_isSorted").mockReturnValue(false);
+    const sortSpy = vi.spyOn(sort, "sort");
+    const recentlyClearedSpy = vi.spyOn(component["_recentlyCleared"], "set");
     component._toggleOnInteraction();
     expect(sortSpy).toHaveBeenCalled();
     expect(recentlyClearedSpy).toHaveBeenCalledWith(null);
@@ -55,9 +56,9 @@ describe("MatMultiSortHeaderComponent", () => {
 
   it("should set recentlyCleared to null when the column is now sorted", () => {
     component.disabled = false;
-    spyOn(component, "_isSorted").and.returnValue(true);
-    const sortSpy = spyOn(sort, "sort");
-    const recentlyClearedSpy = spyOn(component["_recentlyCleared"], "set");
+    vi.spyOn(component, "_isSorted").mockReturnValue(true);
+    const sortSpy = vi.spyOn(sort, "sort");
+    const recentlyClearedSpy = vi.spyOn(component["_recentlyCleared"], "set");
     component._toggleOnInteraction();
     expect(sortSpy).toHaveBeenCalled();
     expect(recentlyClearedSpy).toHaveBeenCalledWith(null);
@@ -66,12 +67,12 @@ describe("MatMultiSortHeaderComponent", () => {
   it("should set recentlyCleared to the previous sort direction when the column is no longer sorted", () => {
     component.disabled = false;
     let callCount = 0;
-    spyOn(component, "_isSorted").and.callFake(() => {
+    vi.spyOn(component, "_isSorted").mockImplementation(() => {
       return ++callCount % 2 === 1;
     });
-    spyOnProperty(component, "sortDirection").and.returnValue("asc");
-    const sortSpy = spyOn(sort, "sort");
-    const recentlyClearedSpy = spyOn(component["_recentlyCleared"], "set");
+    vi.spyOn(component, "sortDirection", "get").mockReturnValue("asc");
+    const sortSpy = vi.spyOn(sort, "sort");
+    const recentlyClearedSpy = vi.spyOn(component["_recentlyCleared"], "set");
     component._toggleOnInteraction();
     expect(sortSpy).toHaveBeenCalled();
     expect(recentlyClearedSpy).toHaveBeenCalledWith("asc");

@@ -1,5 +1,5 @@
 import { fakeAsync, TestBed, tick } from "@angular/core/testing";
-import { Test } from "../test";
+import { createMockStorage, type MockStorage, Test } from "../test";
 import {
   COLUMN_CONFIG_PERSISTENCE_STORAGE,
   TableColumn,
@@ -7,18 +7,16 @@ import {
 import { MatTableColumnConfigPersistenceService } from "./mat-table-column-config-persistence.service";
 
 describe("MatTableColumnConfigPersistenceService", () => {
-  let getItemSpy: jasmine.Spy;
-  let setItemSpy: jasmine.Spy;
+  let storage: MockStorage;
   let service: MatTableColumnConfigPersistenceService<Test>;
 
   beforeEach(() => {
-    getItemSpy = spyOn(globalThis.sessionStorage, "getItem");
-    setItemSpy = spyOn(globalThis.sessionStorage, "setItem");
+    storage = createMockStorage();
     TestBed.configureTestingModule({
       providers: [
         {
           provide: COLUMN_CONFIG_PERSISTENCE_STORAGE,
-          useValue: sessionStorage,
+          useValue: storage,
         },
       ],
     });
@@ -27,7 +25,7 @@ describe("MatTableColumnConfigPersistenceService", () => {
 
   it("should be created", () => {
     expect(service).toBeTruthy();
-    expect(getItemSpy).toHaveBeenCalled();
+    expect(storage.getItem).toHaveBeenCalled();
   });
 
   it("should have an empty columns array initially", () => {
@@ -50,14 +48,14 @@ describe("MatTableColumnConfigPersistenceService", () => {
           expect(columns).toEqual(test);
           return;
         default:
-          fail("Unexpected call");
+          expect.unreachable("Unexpected call");
       }
     });
     expect(service.columns).toEqual([]);
     service.columns = test;
     tick();
     expect(service.columns).toEqual(test);
-    expect(setItemSpy).toHaveBeenCalledTimes(1);
+    expect(storage.setItem).toHaveBeenCalledTimes(1);
   }));
 
   it("should not persist columns if persistence is disabled", () => {
@@ -68,10 +66,10 @@ describe("MatTableColumnConfigPersistenceService", () => {
     ];
     service.isPersistenceEnabled = false;
     service.columns = test;
-    expect(setItemSpy).not.toHaveBeenCalled();
+    expect(storage.setItem).not.toHaveBeenCalled();
     service.isPersistenceEnabled = true;
     service.columns = test;
-    expect(setItemSpy).toHaveBeenCalledTimes(1);
+    expect(storage.setItem).toHaveBeenCalledTimes(1);
   });
 
   it("should load persisted value when key changes", () => {
@@ -82,16 +80,16 @@ describe("MatTableColumnConfigPersistenceService", () => {
       { id: "value", label: "Value", visible: true },
     ];
     service.columns = test;
-    expect(setItemSpy).toHaveBeenCalledTimes(1);
+    expect(storage.setItem).toHaveBeenCalledTimes(1);
     service.setPersistenceKey("test-key");
     expect(service.key).toBe("test-key");
-    expect(getItemSpy).toHaveBeenCalledWith("test-key");
+    expect(storage.getItem).toHaveBeenCalledWith("test-key");
     expect(service.columns).toEqual([]);
-    getItemSpy.and.returnValue(JSON.stringify(test));
+    storage.getItem.mockReturnValue(JSON.stringify(test));
     service.setPersistenceKey("test-key1");
     expect(service.key).toBe("test-key1");
     expect(service.columns).toEqual(test);
-    expect(setItemSpy).toHaveBeenCalledTimes(1);
+    expect(storage.setItem).toHaveBeenCalledTimes(1);
   });
 
   it("should overwrite persisted columns when key changes", () => {
@@ -101,10 +99,13 @@ describe("MatTableColumnConfigPersistenceService", () => {
       { id: "value", label: "Value", visible: true },
     ];
     service.columns = test;
-    expect(getItemSpy).toHaveBeenCalledTimes(1);
+    expect(storage.getItem).toHaveBeenCalledTimes(1);
     service.setPersistenceKey("test-key", true);
-    expect(setItemSpy).toHaveBeenCalledWith("test-key", JSON.stringify(test));
-    expect(getItemSpy).toHaveBeenCalledTimes(1);
+    expect(storage.setItem).toHaveBeenCalledWith(
+      "test-key",
+      JSON.stringify(test)
+    );
+    expect(storage.getItem).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -115,14 +116,14 @@ describe("MatTableColumnConfigPersistenceService", () => {
       { id: "name", label: "Name", visible: true },
       { id: "value", label: "Value", visible: true },
     ];
-    spyOn(globalThis.sessionStorage, "getItem").and.returnValue(
-      JSON.stringify(test)
-    );
+    const storage = createMockStorage({
+      "mat-table-persistence-column-config": JSON.stringify(test),
+    });
     TestBed.configureTestingModule({
       providers: [
         {
           provide: COLUMN_CONFIG_PERSISTENCE_STORAGE,
-          useValue: sessionStorage,
+          useValue: storage,
         },
       ],
     });

@@ -1,3 +1,4 @@
+import { type MockInstance, vi } from "vitest";
 import { TableColumn } from "./lib/mat-table-column-config";
 
 export interface Test {
@@ -12,4 +13,34 @@ export function generateColumns(): TableColumn<Test>[] {
     { id: "name", label: "Name", visible: true },
     { id: "value", label: "Value", visible: true },
   ];
+}
+
+export type MockStorage = Storage & {
+  clear: MockInstance<() => void>;
+  getItem: MockInstance<(key: string) => string | null>;
+  key: MockInstance<(index: number) => string | null>;
+  removeItem: MockInstance<(key: string) => void>;
+  setItem: MockInstance<(key: string, value: string) => void>;
+};
+
+export function createMockStorage(
+  initial: Record<string, string> = {}
+): MockStorage {
+  const store = new Map<string, string>(Object.entries(initial));
+  return {
+    get length(): number {
+      return store.size;
+    },
+    clear: vi.fn(() => store.clear()),
+    getItem: vi.fn((key: string) => store.get(key) ?? null),
+    setItem: vi.fn((key: string, value: string) => {
+      store.set(key, value);
+    }),
+    removeItem: vi.fn((key: string) => {
+      store.delete(key);
+    }),
+    key: vi.fn(
+      (index: number): string | null => [...store.keys()][index] ?? null
+    ),
+  };
 }

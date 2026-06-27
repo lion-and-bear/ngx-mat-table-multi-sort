@@ -4,7 +4,13 @@ import {
   CdkDropList,
   DropListOrientation,
 } from "@angular/cdk/drag-drop";
-import { ANIMATION_MODULE_TYPE, Component, inject, Input } from "@angular/core";
+import {
+  ANIMATION_MODULE_TYPE,
+  Component,
+  inject,
+  Input,
+  ChangeDetectionStrategy,
+} from "@angular/core";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatIconModule } from "@angular/material/icon";
 import { Sort } from "@angular/material/sort";
@@ -14,6 +20,7 @@ import { MatMultiSortDirective } from "../mat-multi-sort.directive";
   selector: "mat-multi-sort-control",
   imports: [CdkDropList, CdkDrag, MatChipsModule, MatIconModule],
   templateUrl: "./mat-multi-sort-control.component.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./mat-multi-sort-control.component.scss",
 })
 export class MatMultiSortControlComponent {

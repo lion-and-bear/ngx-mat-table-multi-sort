@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
   inject,
+  ChangeDetectionStrategy,
 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatChipsModule } from "@angular/material/chips";
@@ -50,6 +51,7 @@ type PersistenceMode = (typeof PersistenceModes)[number];
     MatTableColumnConfigTriggerDirective,
   ],
   templateUrl: "./app.component.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./app.component.scss",
 })
 /**
