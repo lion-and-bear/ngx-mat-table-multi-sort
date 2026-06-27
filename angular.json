@@ -24,11 +24,37 @@
           },
           "defaultConfiguration": "production"
         },
+        "build-for-test": {
+          "builder": "@angular/build:application",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing",
+              "zone.js/plugins/vitest-patch",
+              "@angular/localize/init"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules"
+              ]
+            }
+          },
+          "configurations": {
+            "development": {
+              "aot": false,
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "development"
+        },
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "tsconfig.spec.json",
-            "buildTarget": "demo:build:testing",
+            "buildTarget": "lib:build-for-test:development",
             "runner": "vitest",
             "coverage": true,
             "coverageReporters": [
