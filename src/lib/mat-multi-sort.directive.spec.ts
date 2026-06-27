@@ -9,6 +9,7 @@ import { MatSortable, Sort } from "@angular/material/sort";
 import { vi } from "vitest";
 import {
   MatMultiSortDirective,
+  SORT_PERSISTENCE_ENABLED,
   SORT_PERSISTENCE_STORAGE,
 } from "./mat-multi-sort.directive";
 import { createMockStorage, type MockStorage } from "../test";
@@ -261,6 +262,31 @@ describe("MatMultiSortDirective", () => {
     directive.setPersistenceKey("test-key", true);
     expect(storage.setItem).toHaveBeenCalledWith("test-key", expectation);
     expect(storage.getItem).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("MatMultiSortDirective with persistence disabled", () => {
+  let storage: MockStorage;
+  let fixture: ComponentFixture<TestComponent>;
+  let directive: TestComponent;
+
+  beforeEach(async () => {
+    storage = createMockStorage();
+    await TestBed.configureTestingModule({
+      imports: [TestComponent, MatMultiSortDirective],
+      providers: [
+        { provide: SORT_PERSISTENCE_STORAGE, useValue: storage },
+        { provide: SORT_PERSISTENCE_ENABLED, useValue: false },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(TestComponent);
+    directive = fixture.componentInstance;
+  });
+
+  it("should not persist sort settings when persistence is disabled", () => {
+    directive.sort({ id: "test", start: "asc" } as MatSortable);
+    expect(storage.setItem).not.toHaveBeenCalled();
   });
 });
 

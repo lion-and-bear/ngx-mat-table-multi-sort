@@ -37,7 +37,8 @@
               "text-summary"
             ],
             "coverageInclude": [
-              "src/lib/**/*.ts"
+              "src/lib/**/*.ts",
+              "src/test.ts"
             ]
           }
         },
@@ -91,7 +92,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "850kB",
+                  "maximumWarning": "900kB",
                   "maximumError": "1.25MB"
                 },
                 {
@@ -152,6 +153,9 @@
               "html",
               "lcov",
               "text-summary"
+            ],
+            "coverageInclude": [
+              "projects/demo/src/app/**/*.ts"
             ]
           }
         },

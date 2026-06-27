@@ -16,7 +16,10 @@ export function generateColumns(): TableColumn<Test>[] {
 }
 
 export type MockStorage = Storage & {
+  clear: MockInstance<() => void>;
   getItem: MockInstance<(key: string) => string | null>;
+  key: MockInstance<(index: number) => string | null>;
+  removeItem: MockInstance<(key: string) => void>;
   setItem: MockInstance<(key: string, value: string) => void>;
 };
 
