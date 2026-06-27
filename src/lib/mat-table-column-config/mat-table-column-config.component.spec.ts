@@ -48,11 +48,11 @@ describe("MatTableColumnConfigComponent", () => {
   });
 
   it("should toggle column visibility", () => {
-    expect(component.columns[1].visible).toBeTrue();
+    expect(component.columns[1].visible).toBe(true);
     component.onColumnVisibilityChanged("name");
-    expect(component.columns[1].visible).toBeFalse();
+    expect(component.columns[1].visible).toBe(false);
     component.onColumnVisibilityChanged("name");
-    expect(component.columns[1].visible).toBeTrue();
+    expect(component.columns[1].visible).toBe(true);
   });
 
   it("should not change visibility for non-existent column", () => {
@@ -63,20 +63,20 @@ describe("MatTableColumnConfigComponent", () => {
 
   it("should set all columns to visible when selectAllColumns is called", () => {
     component.selectAllColumns();
-    expect(component.columns.every((col) => col.visible)).toBeTrue();
-    expect(service.columns.every((col) => col.visible)).toBeTrue();
+    expect(component.columns.every((col) => col.visible)).toBe(true);
+    expect(service.columns.every((col) => col.visible)).toBe(true);
   });
 
   it("should set all columns to hidden when deselectAllColumns is called", () => {
     component.deselectAllColumns();
-    expect(component.columns.every((col) => col.visible)).toBeFalse();
-    expect(service.columns.every((col) => col.visible)).toBeFalse();
+    expect(component.columns.every((col) => col.visible)).toBe(false);
+    expect(service.columns.every((col) => col.visible)).toBe(false);
   });
 
   it("should invert the column selection invertColumnSelection is called", () => {
     component.invertColumnSelection();
-    expect(component.columns[0].visible).toBeTrue(); // id was initially false
-    expect(component.columns[1].visible).toBeFalse(); // name was initially true
-    expect(component.columns[2].visible).toBeFalse(); // value was initially true
+    expect(component.columns[0].visible).toBe(true); // id was initially false
+    expect(component.columns[1].visible).toBe(false); // name was initially true
+    expect(component.columns[2].visible).toBe(false); // value was initially true
   });
 });

@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [22.0.0] - 27.06.2026
+
+### Changed
+
+- [#260] Support Angular 22 and bump dependencies
+- Migrated test runner from Karma/Jasmine to Vitest
+- Made `_sorts` signal updates immutable
+- Removed unused peer dependencies (`@angular/forms`, `@standard-schema/spec`)
+
 ## [21.3.0] - 17.05.2026
 
 ### Changed

@@ -1,15 +1,19 @@
-import { Overlay } from "@angular/cdk/overlay";
-import { Component } from "@angular/core";
+import { Overlay, OverlayRef } from "@angular/cdk/overlay";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import {
   ComponentFixture,
   fakeAsync,
   TestBed,
   tick,
 } from "@angular/core/testing";
+import { vi } from "vitest";
 import { Test } from "../test";
 import { MatTableColumnConfigTriggerDirective } from "./mat-table-column-config-trigger.directive";
 
-@Component({ template: "" })
+@Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
+  template: "",
+})
 export class TestComponent extends MatTableColumnConfigTriggerDirective<Test> {}
 
 describe("MatTableColumnConfigTriggerDirective", () => {
@@ -34,12 +38,18 @@ describe("MatTableColumnConfigTriggerDirective", () => {
 
   it("should create and dismiss overlay", fakeAsync(() => {
     expect(component.componentRef).toBeNull();
-    const createSpy = spyOn(overlay, "create").and.callThrough();
+    let overlayRef!: OverlayRef;
+    const originalCreate = overlay.create.bind(overlay);
+    const createSpy = vi
+      .spyOn(overlay, "create")
+      .mockImplementation((config) => {
+        overlayRef = originalCreate(config);
+        return overlayRef;
+      });
     component.onClick();
     expect(createSpy).toHaveBeenCalled();
-    const overlayRef = createSpy.calls.mostRecent().returnValue;
-    const disposeSpy = spyOn(overlayRef, "dispose").and.callThrough();
-    expect(overlayRef.hasAttached()).toBeTrue();
+    const disposeSpy = vi.spyOn(overlayRef, "dispose");
+    expect(overlayRef.hasAttached()).toBe(true);
     expect(overlayRef.backdropElement).not.toBeNull();
     expect(component.componentRef).not.toBeNull();
     overlayRef.backdropElement!.click();

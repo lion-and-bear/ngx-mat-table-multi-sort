@@ -25,20 +25,20 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "karmaConfig": "karma.conf.js",
             "tsConfig": "tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing",
-              "@angular/localize/init"
+            "buildTarget": "demo:build:testing",
+            "runner": "vitest",
+            "coverage": true,
+            "coverageReporters": [
+              "html",
+              "lcov",
+              "text-summary"
             ],
-            "stylePreprocessorOptions": {
-              "includePaths": [
-                "node_modules"
-              ]
-            }
+            "coverageInclude": [
+              "src/lib/**/*.ts"
+            ]
           }
         },
         "lint": {
@@ -106,6 +106,22 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "testing": {
+              "aot": false,
+              "optimization": false,
+              "extractLicenses": false,
+              "polyfills": [
+                "zone.js",
+                "zone.js/testing",
+                "zone.js/plugins/vitest-patch",
+                "@angular/localize/init"
+              ],
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "node_modules"
+                ]
+              }
             }
           },
           "defaultConfiguration": "production"
@@ -126,31 +142,17 @@
           "builder": "@angular/build:extract-i18n"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "karmaConfig": "projects/demo/karma.conf.js",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing",
-              "@angular/localize/init"
-            ],
             "tsConfig": "projects/demo/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/demo/public"
-              }
-            ],
-            "stylePreprocessorOptions": {
-              "includePaths": [
-                "node_modules"
-              ]
-            },
-            "styles": [
-              "projects/demo/src/styles.scss"
-            ],
-            "scripts": []
+            "buildTarget": "demo:build:testing",
+            "runner": "vitest",
+            "coverage": true,
+            "coverageReporters": [
+              "html",
+              "lcov",
+              "text-summary"
+            ]
           }
         },
         "lint": {

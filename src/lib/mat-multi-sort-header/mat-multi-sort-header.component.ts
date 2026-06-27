@@ -1,4 +1,9 @@
-import { Component, inject, OnInit, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  inject,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from "@angular/core";
 import { MatSort, MatSortHeader, SortDirection } from "@angular/material/sort";
 import { MatMultiSortDirective } from "../mat-multi-sort.directive";
 
@@ -8,12 +13,10 @@ import { MatMultiSortDirective } from "../mat-multi-sort.directive";
   providers: [{ provide: MatSort, useExisting: MatMultiSortDirective }],
   templateUrl: "./mat-multi-sort-header.component.html",
   styleUrl: "./mat-multi-sort-header.component.scss",
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
-export class MatMultiSortHeaderComponent
-  extends MatSortHeader
-  implements OnInit
-{
+export class MatMultiSortHeaderComponent extends MatSortHeader {
   override readonly _sort: MatMultiSortDirective = inject(
     MatMultiSortDirective,
     {

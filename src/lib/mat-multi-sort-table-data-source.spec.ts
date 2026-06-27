@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { MatSort, Sort } from "@angular/material/sort";
 import {
@@ -46,7 +46,8 @@ function generateData(): TestData[] {
 
 @Component({
   selector: "mat-multi-sort-test",
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
+  template: "",
 })
 class TestComponent extends MatMultiSortDirective {}
 
@@ -129,7 +130,7 @@ describe("MatMultiSortTableDataSource", () => {
   });
 
   it("should sort data", () => {
-    directive._sorts().push({ active: "id", direction: "desc" });
+    directive._sorts.set([{ active: "id", direction: "desc" }]);
     dataSource.sort = directive;
     const sorted = dataSource.sortData(data, directive);
     expect(sorted.map((item) => item.id)).toEqual([3, 2, 1]);

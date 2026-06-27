@@ -4,7 +4,13 @@ import {
   CdkDropList,
   moveItemInArray,
 } from "@angular/cdk/drag-drop";
-import { Component, OnDestroy, OnInit, inject } from "@angular/core";
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatIconModule } from "@angular/material/icon";
@@ -24,6 +30,7 @@ import { MatTableColumnConfigPersistenceService } from "../mat-table-column-conf
     MatTooltipModule,
   ],
   templateUrl: "./mat-table-column-config.component.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./mat-table-column-config.component.scss",
 })
 export class MatTableColumnConfigComponent<T> implements OnInit, OnDestroy {
