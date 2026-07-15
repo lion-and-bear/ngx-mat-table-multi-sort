@@ -19,7 +19,7 @@ jobs:
     needs: cache_dependencies
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Ensure full git history for SonarQube
         run: |
           git fetch --unshallow || true
@@ -31,7 +31,7 @@ jobs:
         with:
           node-version: lts/*
       - name: Restore pnpm store
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ${{ needs.cache_dependencies.outputs.pnpm-store-path }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
@@ -42,7 +42,7 @@ jobs:
       - name: Run unit test
         run: pnpm run test:ci
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: lion-and-bear/ngx-mat-table-multi-sort
@@ -64,7 +64,7 @@ jobs:
     needs: cache_dependencies
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
       - name: Setup Node.js
@@ -72,7 +72,7 @@ jobs:
         with:
           node-version: lts/*
       - name: Restore pnpm store
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ${{ needs.cache_dependencies.outputs.pnpm-store-path }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
@@ -89,7 +89,7 @@ jobs:
     needs: cache_dependencies
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
       - name: Setup Node.js
@@ -97,7 +97,7 @@ jobs:
         with:
           node-version: lts/*
       - name: Restore pnpm store
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ${{ needs.cache_dependencies.outputs.pnpm-store-path }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
@@ -113,11 +113,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Run Gitleaks Check
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
