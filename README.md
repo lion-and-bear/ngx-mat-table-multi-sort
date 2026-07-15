@@ -14,7 +14,7 @@ An Angular library that adds multi-sort capability to the Angular Material table
 - Extend the Angular Material Table to support multiple sorting
 - Extend the Angular Material Table to allow the user to re-order columns and toggle their visibility.
 - Support persisting the configuration in local, session or custom storage implementations.
-- Supports all actively supported versions of Angular. Currently that is versions 19, 20 and 21.
+- Supports all actively supported versions of Angular. Currently that is version 20, 21 and 22.
 - Batteries included: The repository contains a demo application that can help you integrate the library with your project
 - 100% covered by automated unit tests and secured by static code analysis
 
