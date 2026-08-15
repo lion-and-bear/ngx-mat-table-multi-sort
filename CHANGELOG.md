@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Bump dependencies
+
+## [22.0.0] - 27.06.2026
+
+### Changed
+
 - [#260] Support Angular 22 and bump dependencies
 - Migrated test runner from Karma/Jasmine to Vitest
 - Made `_sorts` signal updates immutable
@@ -77,7 +83,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#87]: Migrate to Angular 20
 
-[Unreleased]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/compare/21.3.0...HEAD
+[Unreleased]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/compare/22.1.0...HEAD
+[22.1.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/22.1.0
+[22.0.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/22.0.0
 [21.3.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/21.3.0
 [21.2.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/21.2.0
 [21.1.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/21.1.0

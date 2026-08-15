@@ -3,6 +3,7 @@ import angular from "angular-eslint";
 import tseslint from "typescript-eslint";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import vitest from "@vitest/eslint-plugin";
 
 /** @type { import("eslint").Linter.Config[] } */
 const config = tseslint.config(
@@ -24,7 +25,11 @@ const config = tseslint.config(
       parserOptions: {
         ecmaVersion: 2023,
         sourceType: "module",
-        project: "./tsconfig.lint.json",
+        project: [
+          "./tsconfig.lint.json",
+          "./tsconfig.spec.json",
+          "./projects/demo/tsconfig.spec.json",
+        ],
       },
     },
     rules: {
@@ -78,7 +83,11 @@ const config = tseslint.config(
       parserOptions: {
         ecmaVersion: 2023,
         sourceType: "module",
-        project: "./tsconfig.lint.json",
+        project: [
+          "./tsconfig.lint.json",
+          "./tsconfig.spec.json",
+          "./projects/demo/tsconfig.spec.json",
+        ],
       },
     },
     rules: {
@@ -113,6 +122,27 @@ const config = tseslint.config(
         "error",
         {
           singleQuote: false,
+        },
+      ],
+    },
+  },
+  {
+    name: "Vitest specs",
+    files: ["**/*.spec.ts"],
+    plugins: {
+      vitest,
+    },
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
+    },
+    rules: {
+      "@typescript-eslint/unbound-method": "off",
+      "vitest/unbound-method": [
+        "error",
+        {
+          ignoreStatic: true,
         },
       ],
     },

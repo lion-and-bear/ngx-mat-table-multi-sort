@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { MatRadioChange } from "@angular/material/radio";
 import { Sort } from "@angular/material/sort";
-import { NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   COLUMN_CONFIG_PERSISTENCE_ENABLED,
   MatTableColumnConfigPersistenceService,
@@ -24,7 +23,7 @@ describe("AppComponent", () => {
     vi.stubGlobal("sessionStorage", storage);
 
     await TestBed.configureTestingModule({
-      imports: [AppComponent, NoopAnimationsModule],
+      imports: [AppComponent],
       providers: [
         MatTableColumnConfigPersistenceService<MemberInformation>,
         { provide: SORT_PERSISTENCE_ENABLED, useValue: false },
