@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [22.1.0] - 15.08.2026
+
+### Changed
+
+- Bump dependencies
+- Removed unused peer dependencies (`@angular/animations`, `@angular/forms`, `@angular/platform-browser`)
+
 ## [22.0.0] - 27.06.2026
 
 ### Changed
@@ -77,7 +84,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#87]: Migrate to Angular 20
 
-[Unreleased]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/compare/21.3.0...HEAD
+[Unreleased]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/compare/22.1.0...HEAD
+[22.1.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/22.1.0
+[22.0.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/22.0.0
 [21.3.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/21.3.0
 [21.2.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/21.2.0
 [21.1.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/21.1.0
