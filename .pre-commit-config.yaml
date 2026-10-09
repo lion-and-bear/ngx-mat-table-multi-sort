@@ -6,6 +6,8 @@ repos:
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-yaml
+        args:
+          - --allow-multiple-documents
       - id: end-of-file-fixer
       - id: trailing-whitespace
     repo: https://github.com/pre-commit/pre-commit-hooks
@@ -16,7 +18,7 @@ repos:
         stages:
           - pre-push
     repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.17.0
+    rev: v4.19.2
   - hooks:
       - id: gitleaks
     repo: https://github.com/gitleaks/gitleaks
