@@ -1,13 +1,15 @@
-import { Overlay } from "@angular/cdk/overlay";
+import { Overlay, OverlayRef } from "@angular/cdk/overlay";
 import { ComponentPortal } from "@angular/cdk/portal";
 import {
   ComponentRef,
+  DestroyRef,
   Directive,
   ElementRef,
   HostListener,
   ViewContainerRef,
   inject,
 } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { MatTableColumnConfigComponent } from "./mat-table-column-config/mat-table-column-config.component";
 
 @Directive({
@@ -18,7 +20,9 @@ export class MatTableColumnConfigTriggerDirective<T> {
   private readonly elementRef = inject(ElementRef);
   private readonly overlay = inject(Overlay);
   private readonly viewContainerRef = inject(ViewContainerRef);
+  private readonly destroyRef = inject(DestroyRef);
 
+  private overlayRef: OverlayRef | null = null;
   private _componentRef: ComponentRef<MatTableColumnConfigComponent<T>> | null =
     null;
 
@@ -32,8 +36,22 @@ export class MatTableColumnConfigTriggerDirective<T> {
     return this._componentRef;
   }
 
+  constructor() {
+    // Don't leave the overlay behind when the host is destroyed while it is open.
+    this.destroyRef.onDestroy(() => this.close());
+  }
+
+  /**
+   * Toggles the column configuration overlay. Clicking the trigger while the
+   * overlay is open closes it instead of opening a second one.
+   */
   @HostListener("click")
   onClick(): void {
+    if (this.overlayRef) {
+      this.close();
+      return;
+    }
+
     // Create the component portal
     const positionStrategy = this.overlay
       .position()
@@ -50,7 +68,7 @@ export class MatTableColumnConfigTriggerDirective<T> {
           overlayY: "top",
         },
       ]);
-    const overlayRef = this.overlay.create({
+    this.overlayRef = this.overlay.create({
       positionStrategy,
       hasBackdrop: true,
       backdropClass: "cdk-overlay-transparent-backdrop",
@@ -60,12 +78,18 @@ export class MatTableColumnConfigTriggerDirective<T> {
       this.viewContainerRef,
       this.viewContainerRef.injector
     );
-    this._componentRef = overlayRef.attach(portal);
+    this._componentRef = this.overlayRef.attach(portal);
 
-    overlayRef.backdropClick().subscribe(() => {
-      overlayRef.detach();
-      overlayRef.dispose();
-      this._componentRef = null;
-    });
+    this.overlayRef
+      .backdropClick()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.close());
+  }
+
+  private close(): void {
+    this.overlayRef?.detach();
+    this.overlayRef?.dispose();
+    this.overlayRef = null;
+    this._componentRef = null;
   }
 }
