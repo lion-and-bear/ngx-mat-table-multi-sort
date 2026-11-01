@@ -1,4 +1,4 @@
-import { Injectable, inject } from "@angular/core";
+import { Injectable, Signal, inject, signal } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import {
   COLUMN_CONFIG_PERSISTENCE_ENABLED,
@@ -11,6 +11,13 @@ import {
   providedIn: "root",
 })
 export class MatTableColumnConfigPersistenceService<T> {
+  // Every write is treated as a change so that callers assigning a mutated
+  // array instance still notify consumers.
+  private readonly _columns = signal<TableColumn<T>[]>([], {
+    equal: () => false,
+  });
+  // Mirrors the signal for the deprecated `getColumns()` stream, which keeps
+  // emitting synchronously.
   private readonly columns$ = new BehaviorSubject<TableColumn<T>[]>([]);
   private readonly storage =
     inject<Storage>(COLUMN_CONFIG_PERSISTENCE_STORAGE, { optional: true }) ??
@@ -22,12 +29,18 @@ export class MatTableColumnConfigPersistenceService<T> {
     inject(COLUMN_CONFIG_PERSISTENCE_ENABLED, { optional: true }) ?? true;
 
   /**
+   * A read-only signal holding the current table columns configuration.
+   */
+  public readonly columnsSignal: Signal<TableColumn<T>[]> =
+    this._columns.asReadonly();
+
+  /**
    * Gets the current table columns configuration.
    *
    * @returns {TableColumn<T>[]} An array of table columns.
    */
   public get columns(): TableColumn<T>[] {
-    return this.columns$.getValue();
+    return this._columns();
   }
 
   /**
@@ -36,7 +49,7 @@ export class MatTableColumnConfigPersistenceService<T> {
    * @param value - An array of `TableColumn<T>` representing the new column configuration.
    */
   public set columns(value: TableColumn<T>[]) {
-    this.columns$.next(value);
+    this.setColumns(value);
     this.persistColumnConfig(value);
   }
 
@@ -52,17 +65,27 @@ export class MatTableColumnConfigPersistenceService<T> {
   constructor() {
     if (!this.isPersistenceEnabled) return;
 
-    const columnsSerialized = this.storage.getItem(this.key);
-    this.columns$.next(columnsSerialized ? JSON.parse(columnsSerialized) : []);
+    this.setColumns(this.readPersistedColumns());
   }
 
   /**
    * Retrieves an observable stream of table columns.
    *
+   * @deprecated Read {@link columnsSignal} instead. Will be removed in a future major version.
    * @returns {Observable<TableColumn<T>[]>} An observable that emits an array of table columns.
    */
   public getColumns(): Observable<TableColumn<T>[]> {
     return this.columns$.asObservable();
+  }
+
+  private setColumns(value: TableColumn<T>[]): void {
+    this._columns.set(value);
+    this.columns$.next(value);
+  }
+
+  private readPersistedColumns(): TableColumn<T>[] {
+    const columnsSerialized = this.storage.getItem(this.persistenceKey);
+    return columnsSerialized ? JSON.parse(columnsSerialized) : [];
   }
 
   private persistColumnConfig(columns: TableColumn<T>[]): void {
@@ -87,7 +110,6 @@ export class MatTableColumnConfigPersistenceService<T> {
       return;
     }
 
-    const columnsSerialized = this.storage.getItem(this.persistenceKey);
-    this.columns$.next(columnsSerialized ? JSON.parse(columnsSerialized) : []);
+    this.setColumns(this.readPersistedColumns());
   }
 }

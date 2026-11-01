@@ -57,4 +57,47 @@ describe("MatTableColumnConfigTriggerDirective", () => {
     expect(component.componentRef).toBeNull();
     expect(disposeSpy).toHaveBeenCalled();
   }));
+
+  it("should toggle a single overlay on repeated clicks", () => {
+    const createSpy = vi.spyOn(overlay, "create");
+    const panes = (): number =>
+      document.querySelectorAll(".cdk-overlay-pane").length;
+
+    component.onClick();
+    expect(createSpy).toHaveBeenCalledTimes(1);
+    expect(component.componentRef).not.toBeNull();
+    expect(panes()).toBe(1);
+
+    component.onClick();
+    expect(createSpy).toHaveBeenCalledTimes(1);
+    expect(component.componentRef).toBeNull();
+    expect(panes()).toBe(0);
+
+    component.onClick();
+    expect(createSpy).toHaveBeenCalledTimes(2);
+    expect(component.componentRef).not.toBeNull();
+    expect(panes()).toBe(1);
+  });
+
+  it("should dispose the overlay when destroyed while open", () => {
+    let overlayRef!: OverlayRef;
+    const originalCreate = overlay.create.bind(overlay);
+    vi.spyOn(overlay, "create").mockImplementation((config) => {
+      overlayRef = originalCreate(config);
+      return overlayRef;
+    });
+    component.onClick();
+    const disposeSpy = vi.spyOn(overlayRef, "dispose");
+    const backdrop = overlayRef.backdropElement!;
+
+    fixture.destroy();
+
+    expect(disposeSpy).toHaveBeenCalledTimes(1);
+    expect(overlayRef.hasAttached()).toBe(false);
+    expect(component.componentRef).toBeNull();
+    expect(document.querySelectorAll(".cdk-overlay-pane")).toHaveLength(0);
+
+    backdrop.click();
+    expect(disposeSpy).toHaveBeenCalledTimes(1);
+  });
 });

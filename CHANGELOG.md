@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- [#262]: `sortChange` is now emitted when the sorting state is replaced by writing to `_sorts` directly or by loading a persisted state via `setPersistenceKey()`, so `MatMultiSortTableDataSource` re-sorts its data again
+- [#262]: `active` and `direction` now follow the last sort level when the sorting state is restored or replaced, and are reset when the active sort level is removed
+- [#264]: Clicking the column configuration trigger while the overlay is open now closes it instead of opening a second overlay
+- [#264]: The column configuration overlay is disposed when its trigger is destroyed while the overlay is open
+
+### Changed
+
+- [#262]: Consolidated the sort side-effects in `MatMultiSortDirective`, so each sorting state change emits `sortChange` and is persisted exactly once
+- [#263]: `MatTableColumnConfigPersistenceService` stores the column configuration in a signal and exposes it via the new read-only `columnsSignal`
+- [#263]: `MatTableColumnConfigComponent` reads the column configuration signal instead of subscribing to it and no longer mutates the column configuration in place
+
+### Deprecated
+
+- [#263]: `MatTableColumnConfigPersistenceService.getColumns()` is deprecated in favour of `columnsSignal` and will be removed in a future major version
+
 ## [22.3.0] - 01.11.2026
 
 ### Changed
@@ -113,6 +132,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [20.2.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/20.2.0
 [20.1.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/20.1.0
 [20.0.0]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/releases/tag/20.0.0
+[#264]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/264
+[#263]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/263
+[#262]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/262
 [#203]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/203
 [#184]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/184
 [#176]: https://github.com/lion-and-bear/ngx-mat-table-multi-sort/issues/176

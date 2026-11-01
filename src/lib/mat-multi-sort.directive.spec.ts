@@ -258,6 +258,82 @@ describe("MatMultiSortDirective", () => {
     expect(persistSpy).toHaveBeenCalledTimes(1);
   });
 
+  it.each([
+    ["sort", (): void => directive.sort({ id: "col1" } as MatSortable)],
+    ["toggleSortDirection", (): void => directive.toggleSortDirection("col1")],
+    ["removeSortLevel", (): void => directive.removeSortLevel("col1")],
+    ["reorderSortLevel", (): void => directive.reorderSortLevel(0, 2)],
+    ["clearSorting", (): void => directive.clearSorting()],
+  ])(
+    "should emit sortChange and persist exactly once on %s",
+    (_, operation) => {
+      const sortChangeSpy = vi.spyOn(directive.sortChange, "emit");
+      const persistenceChangedSpy = vi.spyOn(
+        directive.persistenceChanged,
+        "emit"
+      );
+
+      operation();
+      flushEffects();
+      flushEffects();
+
+      expect(sortChangeSpy).toHaveBeenCalledTimes(1);
+      expect(persistenceChangedSpy).toHaveBeenCalledTimes(1);
+      expect(storage.setItem).toHaveBeenCalledTimes(1);
+    }
+  );
+
+  it("should emit sortChange once for direct writes to the sorts signal", () => {
+    const spy = vi.spyOn(directive.sortChange, "emit");
+    directive._sorts.set([
+      { active: "col2", direction: "asc" },
+      { active: "col1", direction: "desc" },
+    ]);
+    expect(spy).not.toHaveBeenCalled();
+
+    flushEffects();
+    flushEffects();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith({ active: "col1", direction: "desc" });
+    expect(directive.active).toBe("col1");
+    expect(directive.direction).toBe("desc");
+    expect(storage.setItem).toHaveBeenCalledTimes(1);
+  });
+
+  it("should reset active and direction when removing the active sort level", () => {
+    directive.sort({ id: "col1" } as MatSortable);
+    directive.removeSortLevel("col1");
+    expect(directive.active).toBe("");
+    expect(directive.direction).toBe("");
+  });
+
+  it("should keep active and direction when removing another sort level", () => {
+    directive.sort({ id: "col1" } as MatSortable);
+    directive.removeSortLevel("col2");
+    expect(directive.active).toBe("col1");
+    expect(directive.direction).toBe("desc");
+  });
+
+  it("should emit sortChange once when the persisted value is loaded for a new key", () => {
+    const test: Sort[] = [
+      { active: "col3", direction: "asc" },
+      { active: "col1", direction: "desc" },
+    ];
+    storage.getItem.mockReturnValue(JSON.stringify(test));
+    const spy = vi.spyOn(directive.sortChange, "emit");
+
+    directive.setPersistenceKey("test-key");
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith({ active: "col1", direction: "desc" });
+    expect(directive.active).toBe("col1");
+    expect(directive.direction).toBe("desc");
+    flushEffects();
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(storage.setItem).toHaveBeenCalledTimes(1);
+  });
+
   it("should load persisted value when key changes", () => {
     const test: Sort[] = [
       { active: "col3", direction: "asc" },
@@ -332,5 +408,11 @@ describe("MatMultiSortDirective", () => {
     const fixture = TestBed.createComponent(TestComponent);
     const directive = fixture.componentInstance;
     expect(directive._sorts()).toEqual(test);
+    expect(directive.active).toBe("col3");
+    expect(directive.direction).toBe("asc");
+
+    const spy = vi.spyOn(directive.sortChange, "emit");
+    fixture.detectChanges();
+    expect(spy).not.toHaveBeenCalled();
   });
 });
