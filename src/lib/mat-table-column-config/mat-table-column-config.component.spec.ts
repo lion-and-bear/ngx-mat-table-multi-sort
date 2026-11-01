@@ -73,6 +73,39 @@ describe("MatTableColumnConfigComponent", () => {
     expect(service.columns.every((col) => col.visible)).toBe(false);
   });
 
+  it("should render column updates made through the persistence service", () => {
+    const labels = (): string[] =>
+      Array.from(
+        (fixture.nativeElement as HTMLElement).querySelectorAll(
+          ".table-column mat-checkbox"
+        ),
+        (element) => element.textContent?.trim() ?? ""
+      );
+    expect(labels()).toEqual(["ID", "Name", "Value"]);
+
+    service.columns = [{ id: "value", label: "Value", visible: true }];
+    fixture.detectChanges();
+
+    expect(labels()).toEqual(["Value"]);
+  });
+
+  it("should not mutate the previous column configuration", () => {
+    const previous = service.columns;
+    const snapshot = structuredClone(previous);
+
+    component.onColumnDropped({
+      previousIndex: 0,
+      currentIndex: 2,
+    } as CdkDragDrop<Test>);
+    component.onColumnVisibilityChanged("name");
+    component.selectAllColumns();
+    component.deselectAllColumns();
+    component.invertColumnSelection();
+
+    expect(previous).toEqual(snapshot);
+    expect(service.columns).not.toBe(previous);
+  });
+
   it("should invert the column selection invertColumnSelection is called", () => {
     component.invertColumnSelection();
     expect(component.columns[0].visible).toBe(true); // id was initially false
