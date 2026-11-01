@@ -135,4 +135,21 @@ describe("MatMultiSortTableDataSource", () => {
     const sorted = dataSource.sortData(data, directive);
     expect(sorted.map((item) => item.id)).toEqual([3, 2, 1]);
   });
+
+  it("should re-sort rendered data when the sorts signal is written directly", () => {
+    fixture.detectChanges();
+    dataSource.data = data;
+    dataSource.sort = directive;
+    let rendered: TestData[] = [];
+    const subscription = dataSource
+      .connect()
+      .subscribe((rows) => (rendered = rows));
+    expect(rendered.map((item) => item.id)).toEqual([1, 2, 3]);
+
+    directive._sorts.set([{ active: "id", direction: "desc" }]);
+    fixture.detectChanges();
+
+    expect(rendered.map((item) => item.id)).toEqual([3, 2, 1]);
+    subscription.unsubscribe();
+  });
 });
